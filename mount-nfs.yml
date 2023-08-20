@@ -1,0 +1,12 @@
+---
+- name: Add NFS DockVol
+  hosts: all
+  tasks:
+    - name: Add GPG key
+      ansible.builtin.shell: |
+        mkdir -p /mnt/dockvol
+        echo "192.168.1.108:/mnt/pool_raid1/DockVol   /mnt/dockvol   nfs defaults,nofail,noatime,nolock,intr,tcp,actimeo=1800 0 0" >> /etc/fstab
+        mount /mnt/dockvol
+      args:
+        executable: /usr/bin/bash
+      changed_when: false
