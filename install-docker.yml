@@ -33,14 +33,10 @@
         - docker-compose-plugin
     - name: Check docker is active
       ansible.builtin.service:
-        name: docker
+        name: docker2
         state: started
         enabled: true
     - name: Ensure group "docker" exists
       ansible.builtin.group:
         name: docker
         state: present
-    - name: Join to the swarm
-      ansible.builtin.command: docker swarm join --token \
-        SWMTKN-1-3ffppcelrodzzq0lxk6ls94dgninmy4ra9t2xvr8v67nh2k6n1-9txhrzj1xoko3lx3fbigdjtgc 192.168.1.211:2377
-      changed_when: false
