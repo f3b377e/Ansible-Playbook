@@ -14,7 +14,7 @@
         - gnupg-agent
         - software-properties-common
     - name: add GPG key
-      apt_key:
+      ansible.builtin.get_url:
         file: https://download.docker.com/linux/{{ ansible_distribution }}/gpg
         keyring: /etc/apt/trusted.gpg.d/docker.gpg
         state: present
