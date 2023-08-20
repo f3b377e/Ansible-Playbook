@@ -1,12 +1,12 @@
 ---
-- hosts: all
-
+- name: Install docker to raspi
+- hosts: All
   tasks:
     - name: install dependencies
       apt:
         name: "{{ item }}"
         state: present
-        update_cache: yes
+        update_cache: true
       loop:
         - apt-transport-https
         - ca-certificates
@@ -14,12 +14,12 @@
         - gnupg-agent
         - software-properties-common
     - name: add GPG key
-      ansible.builtin.shell: | 
-      install -m 0755 -d /etc/apt/keyrings
-      curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
-      chmod a+r /etc/apt/keyrings/docker.gpg
-      
-      exit 0
+      ansible.builtin.shell: |
+        install -m 0755 -d /etc/apt/keyrings
+        curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+        chmod a+r /etc/apt/keyrings/docker.gpg
+
+        exit 0
     - name: add docker repository to apt
       apt_repository:
         repo: deb https://download.docker.com/linux/{{ ansible_distribution | lower }} {{ ansible_distribution_release | lower }} stable
@@ -28,18 +28,18 @@
       apt:
         name: "{{ item }}"
         state: latest
-        update_cache: yes
+        update_cache: true
       loop:
         - docker-ce
         - docker-ce-cli
         - containerd.io
-        - docker-buildx-plugin 
+        - docker-buildx-plugin
         - docker-compose-plugin
     - name: check docker is active
       service:
         name: docker
         state: started
-        enabled: yes
+        enabled: true
     - name: Ensure group "docker" exists
       ansible.builtin.group:
         name: docker

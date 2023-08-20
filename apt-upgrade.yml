@@ -1,8 +1,9 @@
 ---
-- hosts: all
-  gather_facts: False
+- name: Update and Upgrade
+- hosts: All
+  gather_facts: false
   tasks:
-    - name: apt update
+    - name: Ansible apt update
       apt:
-        update_cache: yes
-        upgrade: yes
+        update_cache: true
+        upgrade: true
