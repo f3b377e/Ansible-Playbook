@@ -14,12 +14,13 @@
         - gnupg-agent
         - software-properties-common
     - name: add GPG key
-      ansible.builtin.get_url:
-        url: https://download.docker.com/linux/{{  ansible_distribution | lower }}/gpg
-        dest: /etc/apt/trusted.gpg.d/docker.gpg
+      ansible.builtin.shell: | 
+      install -m 0755 -d /etc/apt/keyrings
+      curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+      chmod a+r /etc/apt/keyrings/docker.gpg
     - name: add docker repository to apt
       apt_repository:
-        repo: deb [signed-by=/etc/apt/trusted.gpg.d/docker.gpg] https://download.docker.com/linux/{{ ansible_distribution | lower }} {{ ansible_distribution_release | lower }} stable
+        repo: deb https://download.docker.com/linux/{{ ansible_distribution | lower }} {{ ansible_distribution_release | lower }} stable
         state: present
     - name: install docker
       apt:
