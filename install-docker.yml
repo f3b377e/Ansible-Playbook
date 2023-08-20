@@ -18,6 +18,8 @@
         install -m 0755 -d /etc/apt/keyrings
         set -o pipefail && curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
         chmod a+r /etc/apt/keyrings/docker.gpg
+      args:
+        executable: /usr/bin/bash
       changed_when: false
     - name: Add docker repository to apt
       ansible.builtin.apt_repository:
