@@ -15,7 +15,8 @@
         - software-properties-common
     - name: add GPG key debian
       apt_key:
-        url: https://download.docker.com/linux/{{ ansible_distribution }}/gpg
+        file: https://download.docker.com/linux/{{ ansible_distribution }}/gpg
+        keyring: /etc/apt/keyrings/docker.gpg
         state: present
     - name: add docker repository to apt
       apt_repository:
