@@ -1,9 +1,9 @@
 ---
 - name: Update and Upgrade
-- hosts: All
+  hosts: All
   gather_facts: false
   tasks:
     - name: Ansible apt update
-      apt:
+      ansible.builtin.apt:
         update_cache: true
         upgrade: true
